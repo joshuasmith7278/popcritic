@@ -5,7 +5,7 @@ import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
 import DisplaySearchBar from '../components/header';
-import { height, width } from '@mui/system';
+import { Rating } from '@mui/material';
 
 
 
@@ -73,17 +73,15 @@ const Movie = () => {
                 
                 <div style={reviewPage}>
                     <h1 style={reviewTitle}>Post Review</h1>
-                    <StarBorderIcon style={starStyle}/>
-                    <StarBorderIcon style={starStyle}/>
-                    <StarBorderIcon style={starStyle}/>
-                    <StarBorderIcon style={starStyle}/>
-                    <StarBorderIcon style={starStyle}/>
-                    <div style={reviewBox}>
-                        <textarea name="review" style={textBox} rows="10" cols={"20"}/>
-                        <button style={reviewPostButton}>Post Review</button>
 
-
-                    </div>
+                    <form>
+                        <Rating name='half-rating' defaultValue={0} precision={0.5} emptyIcon={<StarBorderIcon style={starStyle}/>}/>
+                        <div style={reviewBox}>
+                            <textarea name="review" style={textBox} rows="10" cols={"20"}/>
+                            <button style={reviewPostButton}>Post Review</button>
+                        </div>
+                    </form>
+                    
                     
                     
                 </div>
