@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom';
 import { useNavigate} from 'react-router-dom';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import {GoogleLogin, GoogleOAuthProvider} from '@react-oauth/google';
-import Users from '../pages/user.js';
+
+
+
 
 
 const container = {
@@ -48,7 +50,10 @@ const searchContainer = {
 
 const input = {
     backgroundColor:'#383838',
-    borderRadius:'15px'
+    borderRadius:'15px',
+    fontSize:15,
+    color:'white',
+    height:25
     
 }
 
@@ -60,18 +65,39 @@ const ghLink = {
 
 
 
-function DisplaySearchBar(){
 
-    const [shouldRedirect, setShouldRedirect] = useState(false);
-        const navigate = useNavigate();
-        useEffect( () => {
-            if(shouldRedirect === true) navigate("/");
-        }, [shouldRedirect] );
+console.log("Header Component Renders")
+const DisplaySearchBar = ({movies, setSearchResults}) => {
+
+    const navigate = useNavigate();
+
+    //HANDLES SEARCHBAR INPUT
+    /*
+    const [search, setSearch] = useState("");
+
+    useEffect(
+        ()=>{
+            if(search.length != 0) {
+                console.log("Handle Search Called")
+                HandleSearch(search)
+                
+            };
+        }, [search.length]
+    )
+    */
+
+    //HANDLES HOME ICON INPUT
+    const [shouldRedirect, setShouldRedirect] = useState(false); 
+    useEffect( () => {
+        if(shouldRedirect === true) {
+            navigate("/");
+            setShouldRedirect(false);
+        }
+    }, [shouldRedirect] );
 
     
 
     const responseMessage = (response) =>{
-        Users(response);
         navigate("/");
         console.log(response);
     }
@@ -80,6 +106,31 @@ function DisplaySearchBar(){
         console.log(error);
     }
 
+
+    const goToHandleSearch = (event) =>{
+        if(!event.target.value) return setSearchResults(movies)
+        console.log("Navigating")
+        navigate("/search")
+        
+        const resultsArray = movies.filter(movie => movie.TITLE.includes(event.target.value))
+
+        setSearchResults(resultsArray)
+    }
+
+
+    /*
+    RETURNS
+    
+    Home icon (redirects if clicked)
+    Title
+
+    Github icon (redirects to my github if clicked)
+    search input box (on change, search for movie call)
+    Google OAuth2 
+
+
+    */
+    
     return(
 
         <div style={container} >
@@ -96,14 +147,19 @@ function DisplaySearchBar(){
                     <GitHubIcon fontSize='large'/>
                 </a>
                 
-                <input type="text" placeholder='Search Movies' style={input}/>
+            
+                <input type="text" placeholder='Search Movies' style={input} id='searchBox' onChange={goToHandleSearch}/>
+
                 <GoogleLogin  onError={errorMessage} onSuccess={responseMessage}/>
 
             </div>
 
         </div>
         
+        
     );
+
+
 }
 
 export default DisplaySearchBar;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import DisplaySearchBar from './components/header';
 import Home from './pages/home';
@@ -8,8 +8,14 @@ import { BrowserRouter } from 'react-router-dom';
 
 
 function App() {
+
+ 
+
+  console.log("App Renders");
   return (
     <div>
+      
+
       <PageRoutes />
       
 

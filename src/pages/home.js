@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
-import ReviewList from '../components/reviewList';
+import ReviewList from '../components/MovieRating';
 import DisplaySearchBar from '../components/header';
 
 
@@ -16,7 +16,7 @@ const homeContainer = {
 
 
 
-
+console.log("Home Page Renders");
 const Home = () => {
 
 
@@ -25,14 +25,15 @@ const Home = () => {
 
 
         <div>
+            <DisplaySearchBar movies={null} setSearchResults={null}/>
 
-            <DisplaySearchBar />
+            
 
             <div style={homeContainer}>
 
-
+                
                         
-                <ReviewList src="./inception.jpg" title="Inception" desc="Inception is a science fiction heist thriller film directed by Christopher Nolan, 
+                <ReviewList src="../../inception.jpg" title="Inception" desc="Inception is a science fiction heist thriller film directed by Christopher Nolan, 
                 released in 2010. The movie is known for its complex narrative structure and exploration of dreams and reality. The story revolves around Dom Cobb, 
                 a skilled thief who specializes in the dangerous art of extraction, which involves entering a person's dreams to steal their secrets from their subconscious mind." 
                 review="5" />

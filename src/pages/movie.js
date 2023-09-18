@@ -1,14 +1,11 @@
 import React, {useState} from 'react';
 import ReactDOM from 'react';
-import ReviewList from '../components/reviewList';
+import ReviewList from '../components/MovieRating';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
 import DisplaySearchBar from '../components/header';
 import { Rating } from '@mui/material';
-
-
-
 
 
 const Movie = () => {
@@ -59,18 +56,11 @@ const Movie = () => {
 
 
 
-
+    console.log("Movie Page renders")
     return(
         <div>
+        
 
-            <DisplaySearchBar />
-
-
-
-                
-           
-            
-                
                 <div style={reviewPage}>
                     <h1 style={reviewTitle}>Post Review</h1>
 
