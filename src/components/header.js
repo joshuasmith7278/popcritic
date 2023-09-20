@@ -1,6 +1,6 @@
 import React,{useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
-import { redirect, useNavigate} from 'react-router-dom';
+import { redirect, useNavigate, useLocation} from 'react-router-dom';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import {GoogleLogin, GoogleOAuthProvider} from '@react-oauth/google';
 import ListPage from './ListPage'
@@ -68,9 +68,13 @@ const ghLink = {
 
 let focusStatus = false;
 console.log("Header Component Renders")
-const DisplaySearchBar = ({movies, setSearchResults}) => {
+const DisplaySearchBar = ({movies, setSearchResults, setSearchValue}) => {
 
     const navigate = useNavigate();
+
+    let location = useLocation();
+
+    
 
     //HANDLES SEARCHBAR INPUT
     /*
@@ -86,7 +90,6 @@ const DisplaySearchBar = ({movies, setSearchResults}) => {
         }, [search.length]
     )
     */
-    const [focus, setFocus] = useState("");
 
 
     //HANDLES HOME ICON INPUT
@@ -95,7 +98,7 @@ const DisplaySearchBar = ({movies, setSearchResults}) => {
         if(shouldRedirect === true) {
             navigate("/");
             setShouldRedirect(false);
-            focusStatus = false
+            focusStatus = false;
         }
     }, [shouldRedirect] );
 
@@ -105,8 +108,8 @@ const DisplaySearchBar = ({movies, setSearchResults}) => {
     useEffect(()=>{
         if(searchRedirect === true){
             navigate("/search")
-            focusStatus = true;
             setSearchRedirect(false)
+            focusStatus = true;
             
 
         }
@@ -128,7 +131,17 @@ const DisplaySearchBar = ({movies, setSearchResults}) => {
 
 
     const goToHandleSearch = (event) =>{
-        if(!event.target.value) return setSearchResults(movies)
+    
+        if(!event.target.value){
+            setSearchValue(" ")
+            return setSearchResults(movies)
+
+        } else{
+            setSearchValue(event.target.value)
+
+        }
+
+        
         
         const resultsArray = movies.filter(movie => movie.TITLE.includes(event.target.value))
 
@@ -151,6 +164,15 @@ const DisplaySearchBar = ({movies, setSearchResults}) => {
 
 
     */
+
+    console.log("Path : ")
+    console.log(location.pathname)
+    if(location.pathname != "/search"){
+        focusStatus = false;
+    }
+
+
+
     console.log("Auto focus :")
     console.log(focusStatus)
     return(

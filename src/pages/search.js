@@ -15,6 +15,7 @@ function Search() {
 
     const [movies, setMovies] = useState([])
     const [searchResults, setSearchResults] = useState([])
+    const [searchValue, setSearchValue] = useState([""])
       
       useEffect(()=>{
         getMovies().then(json=>{
@@ -29,6 +30,7 @@ function Search() {
 
     console.log("Search Page Renders")
     console.log(searchResults)
+    console.log(searchValue)
 
     const resultsTitle = {
         color:"gold",
@@ -39,10 +41,11 @@ function Search() {
     
     return(
         <div >
-            <DisplaySearchBar movies={movies} setSearchResults={setSearchResults}/>
+            <DisplaySearchBar movies={movies} setSearchResults={setSearchResults} setSearchValue={setSearchValue}/>
             
             <div style={searchPageCont}>
-                <h1 style={resultsTitle}>Search Results</h1>
+                <h1 style={resultsTitle}>Search Results For {searchValue}</h1>
+
                 <ListPage searchResults={searchResults}/>
 
             </div>

@@ -66,7 +66,7 @@ const Home = () => {
 
 
 
-                <ReviewList src="./shawshank.jpg" title="Shawshank Redepmtion" desc="The Shawshank Redemption is a drama film directed by Frank Darabont, released in 1994. The film is based on 
+                <ReviewList src="./theshawshankredepmtion.jpg" title="Shawshank Redepmtion" desc="The Shawshank Redemption is a drama film directed by Frank Darabont, released in 1994. The film is based on 
                 a novella by Stephen King titled Rita Hayworth and Shawshank Redemption. It is widely regarded as one of the greatest movies of all time and has gained a loyal following over 
                 the years." 
                 review="0.5" />
