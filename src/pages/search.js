@@ -6,6 +6,10 @@ import axios from 'axios';
 import {getMovies} from '../components/axios'
 import ListPage from '../components/ListPage';
 
+const searchPageCont = {
+    padding:"10px"
+}
+
 
 function Search() {
 
@@ -27,17 +31,22 @@ function Search() {
     console.log(searchResults)
 
     const resultsTitle = {
-        color: 'white'
+        color:"gold",
+        paddingLeft :"10px"
     }
 
 
     
     return(
-        <div>
+        <div >
             <DisplaySearchBar movies={movies} setSearchResults={setSearchResults}/>
             
-            <h1 style={resultsTitle}>Search Results</h1>
-            <ListPage searchResults={searchResults}/>
+            <div style={searchPageCont}>
+                <h1 style={resultsTitle}>Search Results</h1>
+                <ListPage searchResults={searchResults}/>
+
+            </div>
+            
 
            
             
