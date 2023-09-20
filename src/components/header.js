@@ -1,8 +1,9 @@
 import React,{useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
-import { useNavigate} from 'react-router-dom';
+import { redirect, useNavigate} from 'react-router-dom';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import {GoogleLogin, GoogleOAuthProvider} from '@react-oauth/google';
+import ListPage from './ListPage'
 
 
 
@@ -65,7 +66,7 @@ const ghLink = {
 
 
 
-
+let focusStatus = false;
 console.log("Header Component Renders")
 const DisplaySearchBar = ({movies, setSearchResults}) => {
 
@@ -85,6 +86,8 @@ const DisplaySearchBar = ({movies, setSearchResults}) => {
         }, [search.length]
     )
     */
+    const [focus, setFocus] = useState("");
+
 
     //HANDLES HOME ICON INPUT
     const [shouldRedirect, setShouldRedirect] = useState(false); 
@@ -92,8 +95,25 @@ const DisplaySearchBar = ({movies, setSearchResults}) => {
         if(shouldRedirect === true) {
             navigate("/");
             setShouldRedirect(false);
+            focusStatus = false
         }
     }, [shouldRedirect] );
+
+
+
+    const [searchRedirect, setSearchRedirect] = useState(false);
+    useEffect(()=>{
+        if(searchRedirect === true){
+            navigate("/search")
+            focusStatus = true;
+            setSearchRedirect(false)
+            
+
+        }
+    }, [searchRedirect]
+
+
+    )
 
     
 
@@ -109,14 +129,15 @@ const DisplaySearchBar = ({movies, setSearchResults}) => {
 
     const goToHandleSearch = (event) =>{
         if(!event.target.value) return setSearchResults(movies)
-        console.log("Navigating")
-        navigate("/search")
         
         const resultsArray = movies.filter(movie => movie.TITLE.includes(event.target.value))
 
+
         setSearchResults(resultsArray)
+        
     }
 
+    
 
     /*
     RETURNS
@@ -130,7 +151,8 @@ const DisplaySearchBar = ({movies, setSearchResults}) => {
 
 
     */
-    
+    console.log("Auto focus :")
+    console.log(focusStatus)
     return(
 
         <div style={container} >
@@ -148,7 +170,7 @@ const DisplaySearchBar = ({movies, setSearchResults}) => {
                 </a>
                 
             
-                <input type="text" placeholder='Search Movies' style={input} id='searchBox' onChange={goToHandleSearch}/>
+                <input autoFocus={focusStatus} type="text" placeholder='Search Movies' style={input} id='searchBox' onClick={()=> setSearchRedirect(true)} onChange={goToHandleSearch}/>
 
                 <GoogleLogin  onError={errorMessage} onSuccess={responseMessage}/>
 

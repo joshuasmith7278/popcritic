@@ -13,7 +13,7 @@ const ListPage =({searchResults})=>{
 
     const content = results?.length ? <article><p>Found {results.length} Posts</p></article> : <article><p>No Matching Posts</p></article>
     return(
-        <main>{results}</main>
+        <main>{content}</main>
     )
 }
 

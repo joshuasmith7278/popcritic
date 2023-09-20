@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import ReviewList from '../components/MovieRating';
 import DisplaySearchBar from '../components/header';
+import { getMovies } from '../components/axios';
 
 
 
@@ -19,13 +20,27 @@ const homeContainer = {
 console.log("Home Page Renders");
 const Home = () => {
 
+    const [movies, setMovies] = useState([])
+    const [searchResults, setSearchResults] = useState([])
+      
+      useEffect(()=>{
+        getMovies().then(json=>{
+            setMovies(json)
+            return json
+        }).then(json => {
+            setSearchResults(json)
+        })
+        
+        
+      }, [])
+
 
     return(
 
 
 
         <div>
-            <DisplaySearchBar movies={null} setSearchResults={null}/>
+            <DisplaySearchBar movies={movies} setSearchResults={setSearchResults}/>
 
             
 
