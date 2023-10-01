@@ -1,9 +1,13 @@
 import React,{useState, useEffect} from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM, { render } from 'react-dom';
 import { redirect, useNavigate, useLocation} from 'react-router-dom';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import {GoogleLogin, GoogleOAuthProvider} from '@react-oauth/google';
 import ListPage from './ListPage'
+import Login from './Login';
+import Search from '../pages/search';
+import { getMovies } from './axios';
+
+
 
 
 
@@ -67,29 +71,16 @@ const ghLink = {
 
 
 let focusStatus = false;
-console.log("Header Component Renders")
-const DisplaySearchBar = ({movies, setSearchResults, setSearchValue}) => {
+
+const DisplaySearchBar = () => {
+    console.log("Header Component Renders")
 
     const navigate = useNavigate();
 
     let location = useLocation();
 
-    
+    const [loggedIn, setLoggedIn] = useState(false);
 
-    //HANDLES SEARCHBAR INPUT
-    /*
-    const [search, setSearch] = useState("");
-
-    useEffect(
-        ()=>{
-            if(search.length != 0) {
-                console.log("Handle Search Called")
-                HandleSearch(search)
-                
-            };
-        }, [search.length]
-    )
-    */
 
 
     //HANDLES HOME ICON INPUT
@@ -97,8 +88,10 @@ const DisplaySearchBar = ({movies, setSearchResults, setSearchValue}) => {
     useEffect( () => {
         if(shouldRedirect === true) {
             navigate("/");
+           
             setShouldRedirect(false);
             focusStatus = false;
+            
         }
     }, [shouldRedirect] );
 
@@ -110,6 +103,7 @@ const DisplaySearchBar = ({movies, setSearchResults, setSearchValue}) => {
             navigate("/search")
             setSearchRedirect(false)
             focusStatus = true;
+            document.getElementById('searchBox').value = "";
             
 
         }
@@ -118,63 +112,28 @@ const DisplaySearchBar = ({movies, setSearchResults, setSearchValue}) => {
 
     )
 
-    
 
-    const responseMessage = (response) =>{
-        navigate("/");
-        console.log(response);
-    }
+    const goToHandleSearch = async (event) =>{
+        const res = await getMovies().then(json=> {return json});
 
-    const errorMessage = (error) =>{
-        console.log(error);
-    }
+        const resultsArray = res.filter(movie => movie.TITLE.includes(event.target.value))
+        
+        console.log(resultsArray)
 
+        navigate('/search', {state : {query: resultsArray, value: event.target.value}})
+        
 
-    const goToHandleSearch = (event) =>{
-    
-        if(!event.target.value){
-            setSearchValue(" ")
-            return setSearchResults(movies)
+        //document.getElementById("searchResList").innerHTML = <ListPage searchResults={resultsArray} />;
 
-        } else{
-            setSearchValue(event.target.value)
+       
+      
 
-        }
+        
 
         
         
-        const resultsArray = movies.filter(movie => movie.TITLE.includes(event.target.value))
-
-
-        setSearchResults(resultsArray)
-        
     }
 
-    
-
-    /*
-    RETURNS
-    
-    Home icon (redirects if clicked)
-    Title
-
-    Github icon (redirects to my github if clicked)
-    search input box (on change, search for movie call)
-    Google OAuth2 
-
-
-    */
-
-    console.log("Path : ")
-    console.log(location.pathname)
-    if(location.pathname != "/search"){
-        focusStatus = false;
-    }
-
-
-
-    console.log("Auto focus :")
-    console.log(focusStatus)
     return(
 
         <div style={container} >
@@ -182,6 +141,10 @@ const DisplaySearchBar = ({movies, setSearchResults, setSearchValue}) => {
             <div style={headerContainer}>
                 <img src='./header.png' style={myLogoImg} onClick={() => setShouldRedirect(true)}/>
                 <h1 style={headerTitle}>PopCritic</h1>
+            </div>
+
+            <div id="loginStatus">
+
             </div>
 
 
@@ -194,7 +157,9 @@ const DisplaySearchBar = ({movies, setSearchResults, setSearchValue}) => {
             
                 <input autoFocus={focusStatus} type="text" placeholder='Search Movies' style={input} id='searchBox' onClick={()=> setSearchRedirect(true)} onChange={goToHandleSearch}/>
 
-                <GoogleLogin  onError={errorMessage} onSuccess={responseMessage}/>
+                <Login setLoggedIn={setLoggedIn}/>
+
+                
 
             </div>
 

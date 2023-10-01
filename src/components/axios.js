@@ -10,3 +10,8 @@ export const getMovies = async () => {
     const resposne = await api.get('/movies')
     return resposne.data
 }
+
+export const getMovieByID = async (name) => {
+    const response = await api.get('/movies/' + name)
+    return response.data
+}

@@ -1,29 +1,20 @@
 import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react';
-import ReviewList from '../components/MovieRating';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
-import DisplaySearchBar from '../components/header';
 import { Rating } from '@mui/material';
 import { getMovies } from '../components/axios';
+import DisplaySearchBar from '../components/header';
+import ReviewList from '../components/MovieRating';
+import { getMovieByID } from '../components/axios';
 
 
 const Movie = () => {
+    console.log("Movie Page renders")
 
-    const [movies, setMovies] = useState([])
-    const [searchResults, setSearchResults] = useState([])
-      
-    useEffect(()=>{
-        getMovies().then(json=>{
-            setMovies(json)
-            return json
-        }).then(json => {
-            setSearchResults(json)
-        })
-        
-        
-    }, [])
+
+
 
     const reviewPage = {
         margin:"65px"
@@ -69,16 +60,19 @@ const Movie = () => {
     }
 
 
+    
 
 
-    console.log("Movie Page renders")
+    
+
+    
     return(
         <div>
-                <DisplaySearchBar movies={movies} setSearchResults={setSearchResults}/>
+            
 
-        
-
-                <div style={reviewPage}>
+               
+                <ReviewList />
+                <div id='reviewForm' style={reviewPage}>
                     <h1 style={reviewTitle}>Post Review</h1>
 
                     <form>

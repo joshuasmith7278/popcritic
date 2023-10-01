@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
 import DisplaySearchBar from '../components/header';
 import axios from 'axios';
-
+import { useLocation } from 'react-router-dom';
 import {getMovies} from '../components/axios'
 import ListPage from '../components/ListPage';
 
@@ -12,25 +12,40 @@ const searchPageCont = {
 
 
 function Search() {
+    console.log("Search Page Renders")
 
-    const [movies, setMovies] = useState([])
-    const [searchResults, setSearchResults] = useState([])
     const [searchValue, setSearchValue] = useState([""])
+    const [searchResults, setSearchResults] = useState([""])
+    const location = useLocation();
       
       useEffect(()=>{
         getMovies().then(json=>{
-            setMovies(json)
-            return json
-        }).then(json => {
+           
             setSearchResults(json)
         })
-        
+        setSearchValue(" ")
+
         
       }, [])
 
-    console.log("Search Page Renders")
-    console.log(searchResults)
-    console.log(searchValue)
+      useEffect(()=>{
+        if(location.state != null){
+            setSearchResults(location.state.query);
+            setSearchValue(location.state.value);
+
+        }
+       
+
+      }, [location.state]);
+
+
+    
+        //
+   
+
+
+    
+
 
     const resultsTitle = {
         color:"gold",
@@ -38,15 +53,26 @@ function Search() {
     }
 
 
+   
+  
+    console.log(searchResults)
+
     
     return(
         <div >
-            <DisplaySearchBar movies={movies} setSearchResults={setSearchResults} setSearchValue={setSearchValue}/>
             
             <div style={searchPageCont}>
                 <h1 style={resultsTitle}>Search Results For {searchValue}</h1>
 
-                <ListPage searchResults={searchResults}/>
+                <div id='searchResList'>
+                   <ListPage searchResults={searchResults}/>
+                   
+                    
+
+
+
+                </div>
+
 
             </div>
             

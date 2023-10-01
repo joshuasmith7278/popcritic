@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom";
 
 const Post = ({post}) => {
+    console.log("Post Component Renders")
 
     const [shouldRedirect, setShouldRedirect] = useState(false);
     const navigate = useNavigate();
@@ -39,7 +40,6 @@ const Post = ({post}) => {
 
     const posterSrc = post.POSTER;
     const d = new Date(post.RELEASE_DATE);
-    console.log(d.getFullYear())
 
     return(
         <div style={searchResCont} onClick={()=>setShouldRedirect(true)}>
