@@ -1,4 +1,4 @@
-import Post from "../components/Post"
+import Post from "./Post"
 
 const ListPage =({searchResults})=>{
     console.log("List Post Component Renders")

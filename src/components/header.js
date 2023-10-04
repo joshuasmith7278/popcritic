@@ -2,15 +2,11 @@ import React,{useState, useEffect} from 'react';
 import ReactDOM, { render } from 'react-dom';
 import { redirect, useNavigate, useLocation} from 'react-router-dom';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import ListPage from './ListPage'
-import Login from './Login';
-import Search from '../pages/search';
 import { getMovies } from './axios';
+import jwt_decode from "jwt-decode"
 
 
-
-
-
+const google = window.google;
 
 
 const container = {
@@ -71,6 +67,28 @@ const userInfo = {
     color:'white'
 }
 
+const userDisp = {
+    display:'flex',
+    alignItems:'center',
+    margin:60
+}
+
+const userPic = {
+    height:'70px',
+    maxWidth:'75%',
+    maxHeight:'75%',
+    borderRadius:12,
+    margin:5
+}
+
+const signOutBttn = {
+    width:130,
+    height:30,
+    borderRadius:8,
+    margin:10,
+    marginRight:10
+}
+
 
 
 
@@ -82,9 +100,39 @@ const DisplaySearchBar = () => {
 
     const navigate = useNavigate();
 
-    let location = useLocation();
+    const [user, setUser] = useState({});
 
-    const [loggedIn, setLoggedIn] = useState(false);
+    function handleCallbackResponse(response){
+      console.log("Encoded JWT Token :" + response.credential)
+      let userObj = jwt_decode(response.credential)
+      setUser(userObj)
+      document.getElementById('signInDiv').hidden = true;
+  
+    }
+
+    function handleSignOut(event){
+        setUser({})
+        document.getElementById('signInDiv').hidden = false;
+    }
+  
+    useEffect(()=>{
+      google.accounts.id.initialize({
+        client_id: "582624851900-lchrvtv7tn3f1mo33eai2ml765svdsao.apps.googleusercontent.com",
+        callback: handleCallbackResponse
+      })
+  
+      google.accounts.id.renderButton(
+        document.getElementById('signInDiv'), {
+          theme:"outline", size:"large"
+        }
+      )
+  
+    }, [])
+
+
+    console.log(user)
+
+    
 
 
 
@@ -93,7 +141,6 @@ const DisplaySearchBar = () => {
     useEffect( () => {
         if(shouldRedirect === true) {
             navigate("/");
-           
             setShouldRedirect(false);
             focusStatus = false;
             
@@ -128,16 +175,12 @@ const DisplaySearchBar = () => {
         navigate('/search', {state : {query: resultsArray, value: event.target.value}})
         
 
-        //document.getElementById("searchResList").innerHTML = <ListPage searchResults={resultsArray} />;
-
-       
-      
-
-        
-
-        
+        //document.getElementById("searchResList").innerHTML = <ListPage searchResults={resultsArray} />
         
     }
+
+
+    //const logout = loggedIn ? <Logout setLoggedIn={setLoggedIn}/> : <Login setLoggedIn={setLoggedIn}/>
 
     return(
 
@@ -154,9 +197,13 @@ const DisplaySearchBar = () => {
             <div style={searchContainer}>
 
 
-                <div style={userInfo} id="loginStatus">
+                { user &&
+                    <div style={userDisp}>
+                        <img style={userPic} src={user.picture}></img>
+                        <h3 style={userInfo}>{user.given_name}</h3>    
+                    </div>
+                }
 
-                </div>
 
                 <a href='https://github.com/joshuasmith7278' style={ghLink}>
                     <GitHubIcon fontSize='large'/>
@@ -165,8 +212,17 @@ const DisplaySearchBar = () => {
             
                 <input autoFocus={focusStatus} type="text" placeholder='Search Movies' style={input} id='searchBox' onClick={()=> setSearchRedirect(true)} onChange={goToHandleSearch}/>
 
-                <Login setLoggedIn={setLoggedIn}/>
+                
+                <div id='signInDiv'>
 
+                </div>
+                {   Object.keys(user).length != 0 &&
+                    <button style={signOutBttn} onClick={(e)=>handleSignOut(e)}>Sign Out</button>
+
+                }
+
+
+                
                 
 
             </div>

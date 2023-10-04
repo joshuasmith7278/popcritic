@@ -6,7 +6,7 @@ import StarHalfIcon from '@mui/icons-material/StarHalf';
 import { Rating } from '@mui/material';
 import { getMovies } from '../components/axios';
 import DisplaySearchBar from '../components/header';
-import ReviewList from '../components/MovieRating';
+import ReviewList from '../components/HomeRevDisp';
 import { getMovieByID } from '../components/axios';
 
 

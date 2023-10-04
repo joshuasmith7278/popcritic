@@ -4,7 +4,7 @@ import DisplaySearchBar from '../components/header';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import {getMovies} from '../components/axios'
-import ListPage from '../components/ListPage';
+import ListPage from '../components/SearchMovDisp';
 
 const searchPageCont = {
     padding:"10px"

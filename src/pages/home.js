@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
-import ReviewList from '../components/MovieRating';
+import ReviewList from '../components/HomeRevDisp';
 import { getMovies, getReviews, getMovieByID, getHomeDispRev } from '../components/axios';
 import DisplaySearchBar from '../components/header';
 
