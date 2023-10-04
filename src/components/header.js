@@ -66,6 +66,11 @@ const ghLink = {
     padding:15
 }
 
+const userInfo = {
+    fontSize:20,
+    color:'white'
+}
+
 
 
 
@@ -143,12 +148,15 @@ const DisplaySearchBar = () => {
                 <h1 style={headerTitle}>PopCritic</h1>
             </div>
 
-            <div id="loginStatus">
-
-            </div>
+           
 
 
             <div style={searchContainer}>
+
+
+                <div style={userInfo} id="loginStatus">
+
+                </div>
 
                 <a href='https://github.com/joshuasmith7278' style={ghLink}>
                     <GitHubIcon fontSize='large'/>

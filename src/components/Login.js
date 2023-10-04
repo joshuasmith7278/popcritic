@@ -2,6 +2,7 @@ import {GoogleLogin, GoogleOAuthProvider} from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
 import { useState } from 'react';
+import { getUserByEmail } from './axios';
 
 const cliendID = "582624851900-lchrvtv7tn3f1mo33eai2ml765svdsao.apps.googleusercontent.com";
 
@@ -12,14 +13,25 @@ const Login = ({setLoggedIn}) =>{
     const navigate = useNavigate();
     const [user, setUser] = useState();
 
+
+    const checkForUser = async (email) =>{
+        console.log(email)
+        let final = email.trim();
+        getUserByEmail(final).then(json=> {
+            document.getElementById("loginStatus").innerHTML = (json[0].NAME)
+        }
+        )
+    }
+
     const onSuccess = (response) =>{
         navigate("/");
         const userObj = jwt_decode(response.credential);
         setUser(userObj);
         setLoggedIn(true)
-        document.getElementById("loginStatus").innerHTML = userObj['email']
+        
         document.getElementById("loginButton").hidden = true;
-        console.log(userObj);
+        checkForUser(userObj['email'])
+        //console.log(userObj);
     }
     
     const onFailure = (error) =>{

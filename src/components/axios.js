@@ -12,6 +12,26 @@ export const getMovies = async () => {
 }
 
 export const getMovieByID = async (name) => {
-    const response = await api.get('/movies/' + name)
+    const response = await api.get('/getMovie/' + name)
+    return response.data
+}
+
+export const getHomeDispRev = async() => {
+    const response = await api.get('/homeRev')
+    return response.data
+}
+
+
+
+
+export const getUserByEmail = async (email) =>{
+    const response = await api.get('/users/' + email)
+    return response.data
+}
+
+
+
+export const getReviews = async() => {
+    const response = await api.get('/reviews')
     return response.data
 }

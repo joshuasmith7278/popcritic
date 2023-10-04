@@ -1,10 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import ReviewList from '../components/MovieRating';
-import { getMovies } from '../components/axios';
+import { getMovies, getReviews, getMovieByID, getHomeDispRev } from '../components/axios';
 import DisplaySearchBar from '../components/header';
 
-
+let reviewText = []
+let reviewRat = []
+let reviewPoster = []
+let reviewTitle = []
+let reviewMID = []
 
 
 const homeContainer = {
@@ -15,15 +19,80 @@ const homeContainer = {
 }
 
 
+async function getMovieFromRev(review){
+    console.log(review)
+    for(let i = 0; i < review.length; i++){
+        let data = await getMovieByID(review[i])
+        reviewTitle.push(data[0].TITLE)
+        reviewPoster.push(data[0].POSTER)
+        
+    }
 
+    
+    //let data = await getMovieByID(review.MOVIE_MOVIE_ID)
+
+    //console.log(data)
+
+}
 
 
 const Home = () => {
-    console.log("Home Page Renders");
+    const [reviews, setReviews] = useState([])
+    const [movies, setMovies] = useState([])
 
+    
+    
+    useEffect(()=>{
+        /*
+        getReviews().then(json=>{
+            setReviews(json);
+            //console.log(json)
+            
+        })
+        */
+       getHomeDispRev().then(
+        json=>{
+            setReviews(json)
+        }
+       )
+
+
+    }, [])
+
+
+
+   
+   
+
+    
+    //console.log(movies)
     
 
 
+    
+   
+    /*
+    
+    */
+
+    
+
+   
+
+    console.log("Home Page Renders");
+
+    //reviews?.map(review => getMovies(review.MOVIE_MOVIE_ID).then(json=>{setMovies(json)}))
+
+   
+
+   //const results = movies?.map((movie, key) => <ReviewList src={movie[0].POSTER} title={movie[0].TITLE} review={reviews[key]["RATING"].toString()} desc={reviews[key]["REVIEW_TEXT"]}/>)
+   console.log(reviews)
+   const content = reviews?.map(
+    review=>
+    <ReviewList src={review.POSTER} title={review.TITLE} desc={review.REVIEW_TEXT} review={review.RATING.toString()} />
+    )
+
+  
       
 
 
@@ -36,10 +105,35 @@ const Home = () => {
 
             
 
+
+
+            <div id='reviewDisp' style={homeContainer}>
+                {content}
+            </div>
+
+
+
+
+
+        </div>
+        
+
+    );
+
+
+}
+
+export default Home;
+
+
+
+/*
+
+
             <div style={homeContainer}>
 
                 
-                        
+               
                 <ReviewList src="../../inception.jpg" title="Inception" desc="Inception is a science fiction heist thriller film directed by Christopher Nolan, 
                 released in 2010. The movie is known for its complex narrative structure and exploration of dreams and reality. The story revolves around Dom Cobb, 
                 a skilled thief who specializes in the dangerous art of extraction, which involves entering a person's dreams to steal their secrets from their subconscious mind." 
@@ -69,14 +163,4 @@ const Home = () => {
 
 
 
-
-
-        </div>
-        
-
-    );
-
-
-}
-
-export default Home;
+*/
