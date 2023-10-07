@@ -89,8 +89,10 @@ const Home = () => {
    console.log(reviews)
    const content = reviews?.map(
     review=>
-    <ReviewList src={review.POSTER} title={review.TITLE} desc={review.REVIEW_TEXT} review={review.RATING.toString()} />
+    <ReviewList src={review.POSTER} title={review.TITLE} desc={review.REVIEW_TEXT} review={review.RATING.toString()} movieID={review.MOVIE_MOVIE_ID} />
     )
+
+    
 
   
       
@@ -101,20 +103,9 @@ const Home = () => {
 
 
         <div>
-            
-
-            
-
-
-
             <div id='reviewDisp' style={homeContainer}>
                 {content}
             </div>
-
-
-
-
-
         </div>
         
 

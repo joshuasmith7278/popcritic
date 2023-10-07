@@ -7,12 +7,47 @@ import { Rating } from '@mui/material';
 import { getMovies } from '../components/axios';
 import DisplaySearchBar from '../components/header';
 import ReviewList from '../components/HomeRevDisp';
-import { getMovieByID } from '../components/axios';
+import { getRevFromMID } from '../components/axios';
+import { useLocation } from 'react-router-dom';
 
 
 const Movie = () => {
     console.log("Movie Page renders")
+    const [movie, setMovie] = useState(
+        {
+            "id":null,
+            "title":null,
+            "poster":null
+        }
+    );
 
+    const [revs, setRevs] = useState();
+    const location = useLocation();
+
+
+
+    useEffect(()=>{
+        if(location.state != null){
+            setMovie({id:location.state.movieID, title:location.state.title, poster:location.state.poster})
+        }
+       
+
+    }, [location.state])
+
+    useEffect(()=>{
+        console.log("Trying to get reviews for " + movie.id)
+        if(movie.id != null){
+            getRevFromMID(movie.id).then(json=>{
+                setRevs(json)
+    
+            })
+
+        }
+      
+
+    }, [movie.id])
+
+    console.log(movie.poster)
 
 
 
@@ -32,10 +67,8 @@ const Movie = () => {
         display:'flex',
         flexDirection:'column',
         width:"550px",
-        marginTop:"15px"
-        
-        
-       
+        marginTop:"10px"
+    
     }
 
     const textBox = {
@@ -59,22 +92,27 @@ const Movie = () => {
         border:"3px solid white"
     }
 
+    const revPage = {
+        display:"flex",
+        marginTop:"30px",
+        marginLeft:"45px"
+    }
 
-    
-
-
-    
-
+    const mvImg = {
+        maxWidth:"80%",
+        maxHeight:"70%"
+    }
     
     return(
-        <div>
-            
+        <div style={revPage}>
 
-               
-                <ReviewList />
-                <div id='reviewForm' style={reviewPage}>
+                <div>
+                    <h1 style={reviewTitle}>{movie.title}</h1>
+                    <img style={mvImg} src={movie.poster}/>
+                </div>
+                
+                <div id='reviewForm'>
                     <h1 style={reviewTitle}>Post Review</h1>
-
                     <form>
                         <Rating name='half-rating' defaultValue={0} precision={0.5} emptyIcon={<StarBorderIcon style={starStyle}/>}/>
                         <div style={reviewBox}>
@@ -82,23 +120,13 @@ const Movie = () => {
                             <button style={reviewPostButton}>Post Review</button>
                         </div>
                     </form>
+
+                    <h1 style={reviewTitle}>Previous Reviews</h1>
                     
                     
                     
                 </div>
            
-                
-                    
-
-
-                    
-
-
-          
-               
-
-
-
         </div>
 
     );

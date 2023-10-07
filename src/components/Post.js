@@ -9,7 +9,7 @@ const Post = ({post}) => {
     useEffect(
         ()=>{
             if(shouldRedirect === true){
-                navigate("/movie");
+                navigate("/movie", {state : {movieID: post.MOVIE_ID, title: post.TITLE, poster: post.POSTER}});
                 setShouldRedirect(false)
             }
         }, [shouldRedirect]

@@ -21,6 +21,13 @@ export const getHomeDispRev = async() => {
     return response.data
 }
 
+export const getRevFromMID = async(mid) =>{
+    console.log('/getRevFromMID/' + mid)
+    const response = await api.get('/getRevFromMID/' + mid)
+    return response.data
+
+}
+
 
 
 

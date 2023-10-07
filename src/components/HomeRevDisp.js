@@ -15,7 +15,8 @@ const ReviewList = (props) => {
             "src":props.src,
             "title":props.title,
             "desc":props.desc,
-            "review":props.review
+            "review":props.review,
+            "movie_id":props.movieID
         }
         );
 
@@ -179,7 +180,7 @@ const ReviewList = (props) => {
         const [shouldRedirect, setShouldRedirect] = useState(false);
         const navigate = useNavigate();
         useEffect( () => {
-            if(shouldRedirect === true) navigate("/movie");
+            if(shouldRedirect === true) navigate("/movie", {state : {movieID: movie.movie_id, title: movie.title, poster:movie.src}});
         }, [shouldRedirect] );
     
 
