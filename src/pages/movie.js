@@ -9,6 +9,7 @@ import DisplaySearchBar from '../components/header';
 import ReviewList from '../components/HomeRevDisp';
 import { getRevFromMID } from '../components/axios';
 import { useLocation } from 'react-router-dom';
+import PrevReviews from '../components/PrevReviews';
 
 
 const Movie = () => {
@@ -21,7 +22,7 @@ const Movie = () => {
         }
     );
 
-    const [revs, setRevs] = useState();
+    const [revs, setRevs] = useState([]);
     const location = useLocation();
 
 
@@ -122,6 +123,8 @@ const Movie = () => {
                     </form>
 
                     <h1 style={reviewTitle}>Previous Reviews</h1>
+                    <PrevReviews reviews={revs}/>
+
                     
                     
                     

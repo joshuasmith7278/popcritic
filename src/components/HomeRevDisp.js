@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
-import StarIcon from '@mui/icons-material/Star';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
-import StarHalfIcon from '@mui/icons-material/StarHalf';
+
 import {Routes, Route, Link, useHistory, useNavigate} from 'react-router-dom';
 import PageRoutes from '../routes';
+import printStars from './printStars';
 
 
 
@@ -43,138 +42,13 @@ const ReviewList = (props) => {
 
     } 
 
-    const starStyle = {
-        color:"#DAA520"
-    }
+   
 
     const movieTextContainer = {
         padding:"25px"
     }
 
-    const printStars = (rating) => {
-       if(rating === "5"){
-        return(
-            <div>
-                <StarIcon style={starStyle}/>
-                <StarIcon style={starStyle}/>
-                <StarIcon style={starStyle}/>
-                <StarIcon style={starStyle}/>
-                <StarIcon style={starStyle}/>
-            </div>
-        )
-       }
-       else if (rating === "4.5"){
-        return(
-            <div>
-                <StarIcon style={starStyle}/>
-                <StarIcon style={starStyle}/>
-                <StarIcon style={starStyle}/>
-                <StarIcon style={starStyle}/>
-                <StarHalfIcon style={starStyle}/>            
-            </div>
-        )
-       }
-       else if (rating === "4"){
-        return(
-            <div>
-                <StarIcon style={starStyle}/>
-                <StarIcon style={starStyle}/>
-                <StarIcon style={starStyle}/>
-                <StarIcon style={starStyle}/>
-                <StarBorderIcon style={starStyle}/>            
-            </div>
-        )
-       }
-       else if (rating === "3.5"){
-        return(
-            <div>
-                <StarIcon style={starStyle}/>
-                <StarIcon style={starStyle}/>
-                <StarIcon style={starStyle}/>
-                <StarHalfIcon style={starStyle}/>  
-                <StarBorderIcon style={starStyle}/>        
-            </div>
-        )
-       }
-       else if (rating === "3"){
-        return(
-            <div>
-                <StarIcon style={starStyle}/>
-                <StarIcon style={starStyle}/>
-                <StarIcon style={starStyle}/>
-                <StarBorderIcon style={starStyle}/>
-                <StarBorderIcon style={starStyle}/>
-            </div>
-        )
-       }
-       else if (rating === "2.5"){
-        return(
-            <div>
-                <StarIcon style={starStyle}/>
-                <StarIcon style={starStyle}/>
-                <StarHalfIcon style={starStyle}/>  
-                <StarBorderIcon style={starStyle}/>   
-                <StarBorderIcon style={starStyle}/>        
-            </div>
-        )
-       }
-       else if (rating === "2"){
-        return(
-            <div>
-                <StarIcon style={starStyle}/>
-                <StarIcon style={starStyle}/>
-                <StarBorderIcon style={starStyle}/>
-                <StarBorderIcon style={starStyle}/>
-                <StarBorderIcon style={starStyle}/>
-            </div>
-        )
-       }
-       else if (rating ==="1.5"){
-        return(
-            <div>
-                <StarIcon style={starStyle}/>
-                <StarHalfIcon style={starStyle}/> 
-                <StarBorderIcon style={starStyle}/>   
-                <StarBorderIcon style={starStyle}/>   
-                <StarBorderIcon style={starStyle}/>        
-            </div>
-        )
-       }
-       else if (rating === "1"){
-        return(
-            <div>
-                <StarIcon style={starStyle}/>
-                <StarBorderIcon style={starStyle}/>
-                <StarBorderIcon style={starStyle}/>
-                <StarBorderIcon style={starStyle}/>
-                <StarBorderIcon style={starStyle}/>
-            </div>
-        )
-       }
-       else if (rating === "0.5"){
-        return(
-            <div>
-                <StarHalfIcon style={starStyle}/> 
-                <StarBorderIcon style={starStyle}/>  
-                <StarBorderIcon style={starStyle}/>   
-                <StarBorderIcon style={starStyle}/>   
-                <StarBorderIcon style={starStyle}/>        
-            </div>
-        )
-       }
-       else {
-        return (
-            <div>
-                <StarBorderIcon style={starStyle}/>
-                <StarBorderIcon style={starStyle}/>
-                <StarBorderIcon style={starStyle}/>
-                <StarBorderIcon style={starStyle}/>
-                <StarBorderIcon style={starStyle}/>
-            </div>
-
-        )
-       }
-    }
+    
 
 
         const [shouldRedirect, setShouldRedirect] = useState(false);
