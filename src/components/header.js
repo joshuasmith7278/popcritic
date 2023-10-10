@@ -3,10 +3,11 @@ import ReactDOM, { render } from 'react-dom';
 import { redirect, useNavigate, useLocation} from 'react-router-dom';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { getMovies } from './axios';
-import jwt_decode from "jwt-decode"
 
 
-const google = window.google;
+
+
+
 
 
 const container = {
@@ -98,39 +99,13 @@ let focusStatus = false;
 const DisplaySearchBar = () => {
     console.log("Header Component Renders")
 
+
     const navigate = useNavigate();
 
-    const [user, setUser] = useState({});
-
-    function handleCallbackResponse(response){
-      console.log("Encoded JWT Token :" + response.credential)
-      let userObj = jwt_decode(response.credential)
-      setUser(userObj)
-      document.getElementById('signInDiv').hidden = true;
-  
-    }
-
-    function handleSignOut(event){
-        setUser({})
-        document.getElementById('signInDiv').hidden = false;
-    }
-  
     useEffect(()=>{
-      google.accounts.id.initialize({
-        client_id: "582624851900-lchrvtv7tn3f1mo33eai2ml765svdsao.apps.googleusercontent.com",
-        callback: handleCallbackResponse
-      })
-  
-      google.accounts.id.renderButton(
-        document.getElementById('signInDiv'), {
-          theme:"outline", size:"large"
-        }
-      )
-  
+        document.getElementById('userDisp').hidden = true;
     }, [])
-
-
-    console.log(user)
+   
 
     
 
@@ -197,12 +172,12 @@ const DisplaySearchBar = () => {
             <div style={searchContainer}>
 
 
-                { user &&
-                    <div style={userDisp}>
-                        <img style={userPic} src={user.picture}></img>
-                        <h3 style={userInfo}>{user.given_name}</h3>    
+              
+                    <div id='userDisp' style={userDisp}>
+                        <img style={userPic} id='userPicture' ></img>
+                        <h3 style={userInfo} id='userName'></h3>    
                     </div>
-                }
+                
 
 
                 <a href='https://github.com/joshuasmith7278' style={ghLink}>
@@ -216,10 +191,7 @@ const DisplaySearchBar = () => {
                 <div id='signInDiv'>
 
                 </div>
-                {   Object.keys(user).length != 0 &&
-                    <button style={signOutBttn} onClick={(e)=>handleSignOut(e)}>Sign Out</button>
-
-                }
+                
 
 
                 

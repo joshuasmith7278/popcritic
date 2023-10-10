@@ -86,7 +86,6 @@ const Home = () => {
    
 
    //const results = movies?.map((movie, key) => <ReviewList src={movie[0].POSTER} title={movie[0].TITLE} review={reviews[key]["RATING"].toString()} desc={reviews[key]["REVIEW_TEXT"]}/>)
-   console.log(reviews)
    const content = reviews?.map(
     review=>
     <ReviewList src={review.POSTER} title={review.TITLE} desc={review.REVIEW_TEXT} review={review.RATING.toString()} movieID={review.MOVIE_MOVIE_ID} />

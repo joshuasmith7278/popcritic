@@ -103,6 +103,13 @@ const Movie = () => {
         maxWidth:"80%",
         maxHeight:"70%"
     }
+
+
+    const validateForm = (event) =>{
+        event.preventDefault();
+        let reviewRating = document.forms["reviewForm"]["half-rating"].value;
+        console.log("SUBMITTING REVIEW")
+    }
     
     return(
         <div style={revPage}>
@@ -114,11 +121,11 @@ const Movie = () => {
                 
                 <div id='reviewForm'>
                     <h1 style={reviewTitle}>Post Review</h1>
-                    <form>
+                    <form name="reviewForm" onSubmit={validateForm}>
                         <Rating name='half-rating' defaultValue={0} precision={0.5} emptyIcon={<StarBorderIcon style={starStyle}/>}/>
                         <div style={reviewBox}>
                             <textarea name="review" style={textBox} rows="10" cols={"20"}/>
-                            <button style={reviewPostButton}>Post Review</button>
+                            <button type="submit" style={reviewPostButton}>Post Review</button>
                         </div>
                     </form>
 
