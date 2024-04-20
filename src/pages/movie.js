@@ -96,12 +96,16 @@ const Movie = () => {
     const revPage = {
         display:"flex",
         marginTop:"30px",
-        marginLeft:"45px"
+        marginLeft:"65px"
     }
 
     const mvImg = {
-        maxWidth:"80%",
-        maxHeight:"70%"
+        width:"500px",
+        maxHeight:"700px"
+    }
+
+    const movieDiv = {
+        marginRight:"80px"
     }
 
 
@@ -114,7 +118,7 @@ const Movie = () => {
     return(
         <div style={revPage}>
 
-                <div>
+                <div style={movieDiv}>
                     <h1 style={reviewTitle}>{movie.title}</h1>
                     <img style={mvImg} src={movie.poster}/>
                 </div>

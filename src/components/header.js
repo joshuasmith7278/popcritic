@@ -21,6 +21,7 @@ const container = {
 }
 
 const headerContainer = {
+    marginLeft:"15px",
     display:'flex',
     flex:4
   
