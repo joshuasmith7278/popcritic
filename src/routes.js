@@ -3,6 +3,7 @@ import Home from './pages/home';
 import Movie from './pages/movie';
 import Search from './pages/search';
 import Users from './pages/user';
+import AddMovie from "./pages/addMovie";
 
 
 const PageRoutes = () => {
@@ -13,6 +14,7 @@ const PageRoutes = () => {
                 <Route path="/movie" element={<Movie />} />
                 <Route path="/search" element={<Search />} />
                 <Route path="/user" element={<Users />} />
+                <Route path="/addmovie" element={<AddMovie />} />
             </Routes>
         </div>
             

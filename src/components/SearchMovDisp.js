@@ -1,7 +1,25 @@
 import Post from "./Post"
+import React,{useState, useEffect} from 'react';
+import ReactDOM, { render } from 'react-dom';
+import { redirect, useNavigate, useLocation} from 'react-router-dom';
+import addMovie from "../pages/addMovie";
+
+let focusStatus = false;
 
 const ListPage =({searchResults})=>{
     console.log("List Post Component Renders")
+
+    const navigate = useNavigate();
+
+    const [shouldRedirect, setShouldRedirect] = useState(false); 
+    useEffect( () => {
+        if(shouldRedirect === true) {
+            navigate("/addmovie");
+            setShouldRedirect(false);
+            focusStatus = false;
+            
+        }
+    }, [shouldRedirect] );
 
     const errorStyle = {
         color:"white"
@@ -17,13 +35,14 @@ const ListPage =({searchResults})=>{
 
    
 
+  
  
 
    
-
+    
    
   
-   const content = results.length ? <article><p>{results}</p></article> : <article><h1 style={errorStyle}>No movie with that name in our database. Try another.</h1></article>
+   const content = results.length ? <article><p>{results}</p></article> : <article><h1 style={errorStyle}>No movie with that name in our database. Click below to add a movie. </h1><button onClick={() => setShouldRedirect(true)}>Click</button></article>
 
     
     

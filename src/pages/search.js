@@ -18,42 +18,35 @@ function Search() {
     const [searchResults, setSearchResults] = useState([""])
     const location = useLocation();
       
-      useEffect(()=>{
-        getMovies().then(json=>{
-           
-            setSearchResults(json)
-        })
-        setSearchValue(" ")
 
+    //Get movie data from database through AXIOS API
+    useEffect(()=>{
+    getMovies().then(json=>{
         
-      }, [])
+        setSearchResults(json)
+    })
+    setSearchValue(" ")
+    }, [])
 
-      useEffect(()=>{
-        if(location.state != null){
-            setSearchResults(location.state.query);
-            setSearchValue(location.state.value);
 
-        }
-       
+    //Dont know what this does???????????
+    useEffect(()=>{
+    if(location.state != null){
+        setSearchResults(location.state.query);
+        setSearchValue(location.state.value);
 
-      }, [location.state]);
+    }
+    
+    }, [location.state]);
 
 
     
-        //
-   
-
-
-    
-
 
     const resultsTitle = {
         color:"gold",
         paddingLeft :"10px"
     }
 
-
-   
   
     console.log(searchResults)
 
