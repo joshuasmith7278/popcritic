@@ -54,7 +54,7 @@ const Movie = () => {
         console.log("SUBMITTING REVIEW")
     }
     
-    console.log(movie.id)
+    console.log("Movie Page displaying Movie ID : " + movie.id)
 
     return(
         <div className='revPage'>
