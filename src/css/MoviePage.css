@@ -1,0 +1,55 @@
+.reviewPage {
+    margin:65px
+}
+
+.reviewTitle {
+    color:white
+}
+
+.starStyle{
+    color:#DAA520
+}
+
+.reviewBox{
+    display:flex;
+    flex-direction:column;
+    width:550px;
+    margin-top:10px
+
+}
+
+.textBox{
+    border-radius:15px;
+    background:#202020;
+    border:black;
+    color:white;
+    font-size:18px;
+    padding:10px
+  
+}
+
+
+.reviewPostButton{
+    margin-top:15px;
+    width:100px;
+    height:30px;
+    background-color:#121212;
+    color:white;
+    border-radius:10px;
+    border:3px solid white
+}
+
+.revPage{
+    display:flex;
+    margin-top:30px;
+    margin-left:65px
+}
+
+.mvImg{
+    width:500px;
+    max-height:700px
+}
+
+.movieDiv{
+    margin-right:80px
+}
