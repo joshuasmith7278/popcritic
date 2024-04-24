@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
-import DisplaySearchBar from '../components/header';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import {getMovies} from '../components/axios'

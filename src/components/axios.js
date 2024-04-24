@@ -3,11 +3,23 @@ import axios from "axios"
 export const api = axios.create({
     baseURL: 'http://localhost:9000'
 
-}  
+} 
 )
 
+//------------------------------------- EXPRESS API -------------------------------------------------------------
+export const postReview = async (movieID, userID, review, rating) => {
+    const response = await api.post('/reviews',
+    {
+        movieID: movieID,
+        userID: userID,
+        review: review,
+        rating: rating
+    })
 
-//---------------- GET Methods ------------------------
+    return response.data
+}
+
+
 export const getMovies = async () => {
     const resposne = await api.get('/movies')
     return resposne.data
@@ -48,4 +60,18 @@ export const getReviews = async() => {
 export const addMovietoDB = async() =>{
     
 }
+
+
+
+//----------------------------- TMDB API ------------------------- DOESNT USE OUR API WITH EXPRESS BACKEND
+export const getRecentMovies = async()=>{
+    
+    const resposne = await api.get('/recents')
+    return resposne.data
+
+    
+    
+}
+
+
 

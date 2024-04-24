@@ -5,6 +5,7 @@ import { getRevFromMID } from '../components/axios';
 import { useLocation } from 'react-router-dom';
 import PrevReviews from '../components/PrevReviews';
 import '../css/MoviePage.css';
+import { postReview } from '../components/axios';
 
 
 const Movie = () => {
@@ -20,8 +21,12 @@ const Movie = () => {
     );
 
     const [revs, setRevs] = useState([]);
+    const [reviewList, setReviewList] = useState([]);
+
+   
     const location = useLocation();
 
+    useEffect(()=>{}, [revs])
 
     //Set the movie state information once the location of the page renders
     //LOOK INTO THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -51,10 +56,22 @@ const Movie = () => {
     const validateForm = (event) =>{
         event.preventDefault();
         let reviewRating = document.forms["reviewForm"]["half-rating"].value;
+        let reviewText = document.getElementById('reviewText').value
         console.log("SUBMITTING REVIEW")
+        console.log(reviewRating)
+        console.log(reviewText)
+
+        postReview(movie.id, 1, reviewText, reviewRating)
+        let reviews = setReviewList(getRevFromMID(movie.id).then(json=>{
+            setRevs(json)
+
+        }))
+
+        setReviewList(reviews)
     }
     
     console.log("Movie Page displaying Movie ID : " + movie.id)
+    console.log("Reviews Length" + revs.length)
 
     return(
         <div className='revPage'>
@@ -69,12 +86,18 @@ const Movie = () => {
                     <form name="reviewForm" onSubmit={validateForm}>
                         <Rating name='half-rating' defaultValue={0} precision={0.5} emptyIcon={<StarBorderIcon className='starStyle'/>}/>
                         <div className='reviewBox'>
-                            <textarea name="review" className='textBox' rows="10" cols={"20"}/>
+                            <textarea id='reviewText' name="review" className='textBox' rows="10" cols={"20"}/>
                             <button type="submit" className='reviewPostButton'>Post Review</button>
                         </div>
                     </form>
 
-                    <h1 className='reviewTitle'>Previous Reviews</h1>
+                    <div>
+                        <h1 className='reviewTitle'>Previous Reviews</h1>
+                        <h3 className='reviewTitle'>Total Reviews: {revs.length}</h3>
+                        <h3 className='reviewTitle'>Average Rating: {revs.length}</h3>
+
+                    </div>
+                    
                     <PrevReviews reviews={revs}/>
 
                     

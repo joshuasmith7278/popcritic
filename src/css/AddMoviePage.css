@@ -1,0 +1,13 @@
+.pageContainer{
+    padding:10px
+}
+
+
+.resultsTitle{
+    color:gold;
+    padding-left:10px
+}
+
+.movieFormStyle{
+    display:flex
+}
