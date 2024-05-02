@@ -65,12 +65,13 @@ export const addMovietoDB = async() =>{
 
 //----------------------------- TMDB API ------------------------- DOESNT USE OUR API WITH EXPRESS BACKEND
 export const getRecentMovies = async()=>{
-    
     const resposne = await api.get('/recents')
-    return resposne.data
+    return resposne.data 
+}
 
-    
-    
+export const getMoviePoster = async(mid)=>{
+    const resposne = await api.get('/images/' + mid)
+    return resposne.data 
 }
 
 
