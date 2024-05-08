@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
-import DisplaySearchBar from './components/header';
+import DisplaySearchBar from './components/AppHeader';
 import PageRoutes from './routes';
 import jwt_decode from "jwt-decode"
 

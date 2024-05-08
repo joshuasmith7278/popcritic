@@ -1,51 +1,54 @@
 import React, {useEffect, useState} from 'react';
-import ReactDOM from 'react-dom';
-
-import {Routes, Route, Link, useHistory, useNavigate} from 'react-router-dom';
-import PageRoutes from '../routes';
+import {useNavigate} from 'react-router-dom';
 import printStars from './printStars';
+import { height } from '@mui/system';
 
 
 
-const ReviewList = (props) => {
+const RecentList = (props) => {
 
     const [movie, setMovie] = useState(
         {
             "src":props.src,
             "title":props.title,
-            "desc":props.desc,
-            "review":props.review,
-            "movie_id":props.movieID
+            "date":props.date,
+           
         }
         );
 
     const movieDisplay = {
-        width:"550px",
+        width:"189px",
+        height:"370px",
         backgroundColor: "#202020",
-        margin:"15px"
+        margin:"10px"
     }
 
     const moviePoster = {
-        width:"550px"
+        width:"189px",
+        height:"280px"
+
     }
 
     const movieTitle = {
         color:"white",
-        fontSize:"30px",
+        fontSize:"13px",
         fontWeight:"bold"
 
     }
 
     const movieDesc = {
-        color:"white",
-        fontSize:"18px"
-
+        color:"grey",
+        fontSize:"11px",
+        
     } 
 
    
 
     const movieTextContainer = {
-        padding:"25px"
+        padding:"7px",
+        height:"85px",
+        textAlign:"center",
+        justifyContent:"center"
     }
 
     
@@ -53,37 +56,26 @@ const ReviewList = (props) => {
 
         const [shouldRedirect, setShouldRedirect] = useState(false);
         const navigate = useNavigate();
+        /*
         useEffect( () => {
             if(shouldRedirect === true) navigate("/movie", {state : {movieID: movie.movie_id, title: movie.title, poster:movie.src}});
         }, [shouldRedirect] );
-    
+        */
 
+        var PosterLink = "https://image.tmdb.org/t/p/w500/" + movie.src
         return(
 
             
             <div style={movieDisplay} onClick={() => setShouldRedirect(true)}>
-
-                
-                    <img style={moviePoster} src={movie.src} />
-
+                    <img id="img"style={moviePoster} src={PosterLink} />
                     <div style={movieTextContainer}>
                         <p style={movieTitle}>{movie.title}</p>
-                        <p style={movieDesc}>{movie.desc}</p>
-                        {printStars(movie.review)}
-
+                        <p style={movieDesc}>{movie.date}</p>
                     </div>
-                
-                
-           
-                
-                
-                
-
-                
             </div>
 
         );
 }
 
 
-export default ReviewList;
+export default RecentList;
