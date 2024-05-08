@@ -1,9 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import ReactDOM from 'react-dom';
-import axios from 'axios';
 import { useLocation } from 'react-router-dom';
-import {getMovies} from '../components/axios'
-import ListPage from '../components/SearchMovDisp';
+import {searchTMDB} from '../components/ExpressAPI'
+import ListPage from '../components/SearchComponents/SearchResults';
 
 const searchPageCont = {
     padding:"10px"
@@ -13,30 +11,38 @@ const searchPageCont = {
 function Search() {
     console.log("Search Page Renders")
 
-    const [searchValue, setSearchValue] = useState([""])
+    const [searchQuery, setSearchQuery] = useState([""])
     const [searchResults, setSearchResults] = useState([""])
     const location = useLocation();
       
 
     //Get movie data from database through AXIOS API
-    useEffect(()=>{
-    getMovies().then(json=>{
-        
-        setSearchResults(json)
-    })
-    setSearchValue(" ")
-    }, [])
 
 
     //Dont know what this does???????????
+  
     useEffect(()=>{
     if(location.state != null){
-        setSearchResults(location.state.query);
-        setSearchValue(location.state.value);
-
+        setSearchQuery(location.state.searchQuery);
     }
     
     }, [location.state]);
+
+
+
+    useEffect(()=>{
+        console.log(searchQuery.length)
+        if(searchQuery.length > 1){
+            console.log("Searching for ----")
+            console.log(searchQuery)
+            searchTMDB(searchQuery).then(json => setSearchResults(json))
+
+
+        }
+
+    },[searchQuery])
+
+    
 
 
     
@@ -46,7 +52,7 @@ function Search() {
         paddingLeft :"10px"
     }
 
-  
+    console.log("Search Results -----")
     console.log(searchResults)
 
     
@@ -54,7 +60,7 @@ function Search() {
         <div >
             
             <div style={searchPageCont}>
-                <h1 style={resultsTitle}>Search Results For {searchValue}</h1>
+                <h1 style={resultsTitle}>Search Results For {searchQuery}</h1>
 
                 <div id='searchResList'>
                    <ListPage searchResults={searchResults}/>

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import printStars from './printStars';
+import printStars from '../PrintStars';
 import { height } from '@mui/system';
 
 

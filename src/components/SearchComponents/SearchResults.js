@@ -6,11 +6,11 @@ import { redirect, useNavigate, useLocation} from 'react-router-dom';
 let focusStatus = false;
 
 const ListPage =({searchResults})=>{
-    console.log("List Post Component Renders")
+    console.log("Search Results Component Renders")
 
     const navigate = useNavigate();
-
     const [shouldRedirect, setShouldRedirect] = useState(false); 
+
     useEffect( () => {
         if(shouldRedirect === true) {
             navigate("/addmovie");
@@ -25,12 +25,27 @@ const ListPage =({searchResults})=>{
     }
 
 
-    console.log(searchResults)
-   
+
+    //setSearchRes(searchResults)
+    const searchRes = searchResults.results
+    console.log(searchRes)
+
+
+    if(searchRes != null && searchRes.length > 1){
+
+        var content = searchRes?.map(post => <Post title={post.title}  date={post.release_date} poster={post.poster_path}/>)
+        
+
+    }else{
+        var content = <article><h1 style={errorStyle}>No movie with that name in our database. Click below to add a movie. </h1><button onClick={() => setShouldRedirect(true)}>Click</button></article>
+    }
+    
+
+
   
 //If Search Results exist, create a Post Component for each result
-    const results = searchResults?.map(post => 
-   <Post key={post.MOVIE_ID}  post={post} />)
+    
+/*
 
    
 
@@ -41,15 +56,13 @@ const ListPage =({searchResults})=>{
     
    
   
-   const content = results.length ? <article><p>{results}</p></article> : <article><h1 style={errorStyle}>No movie with that name in our database. Click below to add a movie. </h1><button onClick={() => setShouldRedirect(true)}>Click</button></article>
 
     
-    
+    */
 
     return(
         <div>
-            <main>{content}</main> 
-
+            <main><article><p>{content}</p></article></main> 
 
         </div>
     )

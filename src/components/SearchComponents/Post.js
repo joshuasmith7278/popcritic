@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom";
 
-const Post = ({post}) => {
+const Post = (props) => {
     console.log("Post Component Renders")
 
     const [shouldRedirect, setShouldRedirect] = useState(false);
     const navigate = useNavigate();
+    
+    /*
     useEffect(
         ()=>{
             if(shouldRedirect === true){
@@ -14,7 +16,9 @@ const Post = ({post}) => {
             }
         }, [shouldRedirect]
     )
+    */
 
+    
     const titleStyle = {
         color: 'white',
         padding:"40px"
@@ -38,14 +42,19 @@ const Post = ({post}) => {
         alignItems:"center"
     }
 
-    const posterSrc = post.POSTER;
-    const d = new Date(post.RELEASE_DATE);
+    const PosterLink = "https://image.tmdb.org/t/p/w500/" + props.poster
+
+
+    
+
+    
+    
 
     return(
         <div style={searchResCont} onClick={()=>setShouldRedirect(true)}>
-            <img style={imgStyle} src={posterSrc}/>
-            <h2 style={titleStyle}>{post.TITLE}</h2>
-            <p style={pStyle}>{'('}{d.getFullYear()}{')'}</p>
+            <img style={imgStyle} src={PosterLink} alt="" onerror="this.onerror=null; this.src='/error-noimage.png'" />
+            <h2 style={titleStyle}>{props.title}</h2>
+            <p style={pStyle}>{'('}{props.date}{')'}</p>
             
         </div>
     )

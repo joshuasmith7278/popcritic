@@ -2,7 +2,7 @@ import React,{useState, useEffect} from 'react';
 import ReactDOM, { render } from 'react-dom';
 import { redirect, useNavigate, useLocation} from 'react-router-dom';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import { getMovies } from './axios';
+import { getMovies } from './ExpressAPI';
 
 
 
@@ -142,21 +142,15 @@ const DisplaySearchBar = () => {
 
 
     const goToHandleSearch = async (event) =>{
-        const res = await getMovies().then(json=> {return json});
-
-        const resultsArray = res.filter(movie => movie.TITLE.includes(event.target.value))
         
-        console.log(resultsArray)
-
-        navigate('/search', {state : {query: resultsArray, value: event.target.value}})
+        
+        navigate('/search', {state : {searchQuery: event.target.value}})
         
 
-        //document.getElementById("searchResList").innerHTML = <ListPage searchResults={resultsArray} />
         
     }
 
 
-    //const logout = loggedIn ? <Logout setLoggedIn={setLoggedIn}/> : <Login setLoggedIn={setLoggedIn}/>
 
     return(
 

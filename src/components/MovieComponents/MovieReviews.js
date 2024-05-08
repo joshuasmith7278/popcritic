@@ -1,4 +1,4 @@
-import RevHistory from "../components/RevHistory"
+import RevHistory from "./ReviewHistory"
 
 const PrevReviews = ({reviews}) => {
     console.log("Previous Posts Component Renders")

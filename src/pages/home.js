@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
-import FollowingFeed from '../components/FollowingFeed';
-import RecentsFeed from "../components/RecentFeed"
-import { getHomeDispRev, getRecentMovies} from '../components/axios';
+import FollowingFeed from '../components/HomeComponents/FollowingFeed';
+import RecentsFeed from "../components/HomeComponents/RecentFeed"
+import { getHomeDispRev, getRecentMovies} from '../components/ExpressAPI';
 
 
 

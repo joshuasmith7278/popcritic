@@ -1,4 +1,4 @@
-import printStars from "./printStars"
+import printStars from "../PrintStars"
 
 const RevHistory = ({review}) =>{
 

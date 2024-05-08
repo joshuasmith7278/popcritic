@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { Rating } from '@mui/material';
-import { getRevFromMID } from '../components/axios';
+import { getRevFromMID } from '../components/ExpressAPI';
 import { useLocation } from 'react-router-dom';
-import PrevReviews from '../components/PrevReviews';
+import PrevReviews from '../components/MovieComponents/MovieReviews';
 import '../css/MoviePage.css';
-import { postReview } from '../components/axios';
+import { postReview } from '../components/ExpressAPI';
 
 
 const Movie = () => {
@@ -26,7 +26,6 @@ const Movie = () => {
    
     const location = useLocation();
 
-    useEffect(()=>{}, [revs])
 
     //Set the movie state information once the location of the page renders
     //LOOK INTO THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!

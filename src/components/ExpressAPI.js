@@ -6,7 +6,7 @@ export const api = axios.create({
 } 
 )
 
-//------------------------------------- EXPRESS API -------------------------------------------------------------
+//------------------------------------- EXPRESS API ------------------------------------ (---> API Express ---> API to SQL DB)
 export const postReview = async (movieID, userID, review, rating) => {
     const response = await api.post('/reviews',
     {
@@ -56,14 +56,8 @@ export const getReviews = async() => {
 }
 
 
-// -------------------- Post Method ---------------------------
-export const addMovietoDB = async() =>{
-    
-}
 
-
-
-//----------------------------- TMDB API ------------------------- DOESNT USE OUR API WITH EXPRESS BACKEND
+//----------------------------- TMDB API ------------------------- (---> API Express ---> API to TMDB)
 export const getRecentMovies = async()=>{
     const resposne = await api.get('/recents')
     return resposne.data 
@@ -72,6 +66,12 @@ export const getRecentMovies = async()=>{
 export const getMoviePoster = async(mid)=>{
     const resposne = await api.get('/images/' + mid)
     return resposne.data 
+}
+
+export const searchTMDB = async(search) =>{
+    const resposne = await api.get('/search/' + search)
+    return resposne.data 
+    
 }
 
 
