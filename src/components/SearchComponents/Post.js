@@ -7,16 +7,17 @@ const Post = (props) => {
     const [shouldRedirect, setShouldRedirect] = useState(false);
     const navigate = useNavigate();
     
-    /*
+    
     useEffect(
         ()=>{
             if(shouldRedirect === true){
-                navigate("/movie", {state : {movieID: post.MOVIE_ID, title: post.TITLE, poster: post.POSTER}});
+                var PosterLink = "https://image.tmdb.org/t/p/w500/" + props.poster
+                navigate("/movie", {state : {movieID: props.id, title: props.title, poster: PosterLink}});
                 setShouldRedirect(false)
             }
         }, [shouldRedirect]
     )
-    */
+    
 
     
     const titleStyle = {

@@ -7,27 +7,33 @@ export const api = axios.create({
 )
 
 //------------------------------------- EXPRESS API ------------------------------------ (---> API Express ---> API to SQL DB)
-export const postReview = async (movieID, userID, review, rating) => {
+export const postReview = async (movieID, review, rating, userID) => {
     const response = await api.post('/reviews',
     {
         movieID: movieID,
-        userID: userID,
         review: review,
-        rating: rating
+        rating: rating,
+        userID: userID
     })
 
     return response.data
 }
 
 
-export const getMovies = async () => {
-    const resposne = await api.get('/movies')
-    return resposne.data
+export const postAuth = async(username)=>{
+    const response = await api.post('/auth',
+    {
+        username:username
+    })
+
+    return response.data
 }
 
-export const getMovieByID = async (name) => {
-    const response = await api.get('/getMovie/' + name)
+
+export const getUserByID = async(uid) =>{
+    const response = await api.get('/users/' + uid)
     return response.data
+
 }
 
 export const getHomeDispRev = async() => {
@@ -36,8 +42,19 @@ export const getHomeDispRev = async() => {
 }
 
 export const getRevFromMID = async(mid) =>{
-    console.log('/getRevFromMID/' + mid)
     const response = await api.get('/getRevFromMID/' + mid)
+    return response.data
+
+}
+
+export const getRevFromUID = async(uid) =>{
+    const response = await api.get('/getReviewsFromUID/' + uid)
+    return response.data
+
+}
+
+export const getRevByRID = async(rid) =>{
+    const response = await api.get('/reviews/' + rid)
     return response.data
 
 }
@@ -55,21 +72,56 @@ export const getReviews = async() => {
     return response.data
 }
 
+export const getLikesByUID = async(uid) => {
+    const response = await api.get('/likes/user/' + uid)
+    return response.data
+}
 
 
-//----------------------------- TMDB API ------------------------- (---> API Express ---> API to TMDB)
+export const getLikesByReview = async(rid) => {
+    const response = await api.get("/likes/review/" + rid)
+    return response.data
+
+}
+
+export const getLikesUIDandMID = async(uid, mid) => {
+    const response = await api.get("/likes/movie/" + uid + "/" + mid)
+    return response.data
+
+}
+
+export const postLike = async (reviewID, userID, movieID) => {
+    const response = await api.post('/likes',
+    {
+        reviewID: reviewID,
+        userID: userID,
+        movieID:movieID
+    })
+
+    return response.data
+}
+
+
+let tmdbCounter = 0
+//----------------------------- TMDB Controller ------------------------- (---> API Express ---> API to TMDB)
 export const getRecentMovies = async()=>{
     const resposne = await api.get('/recents')
+    tmdbCounter++
+    console.log("TMDB Rate Counter : " + tmdbCounter)
     return resposne.data 
 }
 
-export const getMoviePoster = async(mid)=>{
-    const resposne = await api.get('/images/' + mid)
+export const getMovieByID = async(mid)=>{
+    const resposne = await api.get('/movie/' + mid)
+    tmdbCounter++
+    console.log("TMDB Rate Counter : " + tmdbCounter)
     return resposne.data 
 }
 
 export const searchTMDB = async(search) =>{
     const resposne = await api.get('/search/' + search)
+    tmdbCounter++
+    console.log("TMDB Rate Counter : " + tmdbCounter)
     return resposne.data 
     
 }

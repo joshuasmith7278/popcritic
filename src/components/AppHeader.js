@@ -65,22 +65,22 @@ const ghLink = {
 }
 
 const userInfo = {
-    fontSize:20,
+    fontSize:17,
     color:'white'
 }
 
 const userDisp = {
     display:'flex',
-    alignItems:'center',
-    margin:60
+    flexDirection:"row",
+    justifyContent:"center",
+    hidden:true,
+    marginRight:"20px",
+    paddingLeft:"8px"
 }
 
 const userPic = {
-    height:'70px',
-    maxWidth:'75%',
-    maxHeight:'75%',
-    borderRadius:12,
-    margin:5
+    height:"40px",
+    paddingLeft:"8px"
 }
 
 const signOutBttn = {
@@ -95,11 +95,14 @@ const signOutBttn = {
 
 
 
+
+
+
 let focusStatus = false;
 
-const DisplaySearchBar = () => {
+const DisplaySearchBar = (user) => {
     console.log("Header Component Renders")
-
+    const [username, setUsername] = useState()
 
     const navigate = useNavigate();
 
@@ -107,8 +110,14 @@ const DisplaySearchBar = () => {
         document.getElementById('userDisp').hidden = true;
     }, [])
    
+    console.log(user.user.length)
+    useEffect(()=>{
+        if(user.user.length === 1){
+           setUsername(user.user[0].NAME)
+           
+        }
 
-    
+    }, [user])
 
 
 
@@ -142,15 +151,14 @@ const DisplaySearchBar = () => {
 
 
     const goToHandleSearch = async (event) =>{
-        
-        
         navigate('/search', {state : {searchQuery: event.target.value}})
-        
-
-        
     }
 
+    const userIcon = () => {
+        navigate('/user', {state : {user: user}})
+    }
 
+    console.log(user)
 
     return(
 
@@ -161,36 +169,24 @@ const DisplaySearchBar = () => {
                 <h1 style={headerTitle}>PopCritic</h1>
             </div>
 
-           
-
+            <div id='userDisp' style={userDisp} onClick={userIcon}>
+                <img style={userPic} src='./pengy.png'/>
+                <h3 style={userInfo} id='userName'>{username}</h3>    
+            </div>
 
             <div style={searchContainer}>
-
-
-              
-                    <div id='userDisp' style={userDisp}>
-                        <img style={userPic} id='userPicture' ></img>
-                        <h3 style={userInfo} id='userName'></h3>    
-                    </div>
-                
-
-
                 <a href='https://github.com/joshuasmith7278' style={ghLink}>
                     <GitHubIcon fontSize='large'/>
                 </a>
-                
-            
                 <input autoFocus={focusStatus} type="text" placeholder='Search Movies' style={input} id='searchBox' onClick={()=> setSearchRedirect(true)} onChange={goToHandleSearch}/>
 
-                
                 <div id='signInDiv'>
 
                 </div>
-                
 
+                <div id='signOutDiv'>
 
-                
-                
+                </div>
 
             </div>
 

@@ -33,11 +33,11 @@ const ListPage =({searchResults})=>{
 
     if(searchRes != null && searchRes.length > 1){
 
-        var content = searchRes?.map(post => <Post title={post.title}  date={post.release_date} poster={post.poster_path}/>)
+        var content = searchRes?.map(post => <Post title={post.title}  date={post.release_date} poster={post.poster_path} id={post.id}/>)
         
 
     }else{
-        var content = <article><h1 style={errorStyle}>No movie with that name in our database. Click below to add a movie. </h1><button onClick={() => setShouldRedirect(true)}>Click</button></article>
+        var content = <article><h1 style={errorStyle}>No movie with that name in our database.</h1></article>
     }
     
 

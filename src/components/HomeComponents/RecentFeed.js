@@ -12,6 +12,7 @@ const RecentList = (props) => {
             "src":props.src,
             "title":props.title,
             "date":props.date,
+            "id":props.id
            
         }
         );
@@ -51,18 +52,18 @@ const RecentList = (props) => {
         justifyContent:"center"
     }
 
-    
+        var PosterLink = "https://image.tmdb.org/t/p/w500/" + movie.src
 
 
         const [shouldRedirect, setShouldRedirect] = useState(false);
         const navigate = useNavigate();
-        /*
+        
         useEffect( () => {
-            if(shouldRedirect === true) navigate("/movie", {state : {movieID: movie.movie_id, title: movie.title, poster:movie.src}});
+            if(shouldRedirect === true) navigate("/movie", {state : {movieID: movie.id, title: movie.title, poster:PosterLink}});
         }, [shouldRedirect] );
-        */
+        
 
-        var PosterLink = "https://image.tmdb.org/t/p/w500/" + movie.src
+        
         return(
 
             

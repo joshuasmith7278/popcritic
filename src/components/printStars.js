@@ -7,7 +7,7 @@ const starStyle = {
 }
 
 const printStars = (rating) => {
-    if(rating === "5"){
+    if(rating === 5){
      return(
          <div>
              <StarIcon style={starStyle}/>
@@ -18,7 +18,7 @@ const printStars = (rating) => {
          </div>
      )
     }
-    else if (rating === "4.5"){
+    else if (rating === 4.5){
      return(
          <div>
              <StarIcon style={starStyle}/>
@@ -29,7 +29,7 @@ const printStars = (rating) => {
          </div>
      )
     }
-    else if (rating === "4"){
+    else if (rating === 4){
      return(
          <div>
              <StarIcon style={starStyle}/>
@@ -40,7 +40,7 @@ const printStars = (rating) => {
          </div>
      )
     }
-    else if (rating === "3.5"){
+    else if (rating === 3.5){
      return(
          <div>
              <StarIcon style={starStyle}/>
@@ -51,7 +51,7 @@ const printStars = (rating) => {
          </div>
      )
     }
-    else if (rating === "3"){
+    else if (rating === 3){
      return(
          <div>
              <StarIcon style={starStyle}/>
@@ -62,7 +62,7 @@ const printStars = (rating) => {
          </div>
      )
     }
-    else if (rating === "2.5"){
+    else if (rating === 2.5){
      return(
          <div>
              <StarIcon style={starStyle}/>
@@ -73,7 +73,7 @@ const printStars = (rating) => {
          </div>
      )
     }
-    else if (rating === "2"){
+    else if (rating === 2){
      return(
          <div>
              <StarIcon style={starStyle}/>
@@ -84,7 +84,7 @@ const printStars = (rating) => {
          </div>
      )
     }
-    else if (rating ==="1.5"){
+    else if (rating ===1.5){
      return(
          <div>
              <StarIcon style={starStyle}/>
@@ -95,7 +95,7 @@ const printStars = (rating) => {
          </div>
      )
     }
-    else if (rating === "1"){
+    else if (rating === 1){
      return(
          <div>
              <StarIcon style={starStyle}/>
@@ -106,7 +106,7 @@ const printStars = (rating) => {
          </div>
      )
     }
-    else if (rating === "0.5"){
+    else if (rating === 0.5){
      return(
          <div>
              <StarHalfIcon style={starStyle}/> 

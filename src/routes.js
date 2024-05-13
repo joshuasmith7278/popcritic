@@ -3,18 +3,18 @@ import Home from './pages/home';
 import Movie from './pages/movie';
 import Search from './pages/search';
 import Users from './pages/user';
-import AddMovie from "./pages/addMovie";
+import Login from "./pages/login";
 
 
-const PageRoutes = () => {
+const PageRoutes = (user) => {
     return(
         <div>
             <Routes>
-                <Route exact path="/" element={<Home />} />
-                <Route path="/movie" element={<Movie />} />
-                <Route path="/search" element={<Search />} />
-                <Route path="/user" element={<Users />} />
-                <Route path="/addmovie" element={<AddMovie />} />
+                <Route exact path="/" element={<Home user={user}/>} />
+                <Route path="/movie" element={<Movie user={user}/>} />
+                <Route path="/search" element={<Search user={user}/>} />
+                <Route path="/user" element={<Users user={user}/>} />
+                <Route path="/login" element={<Login user={user}/>} />
             </Routes>
         </div>
             

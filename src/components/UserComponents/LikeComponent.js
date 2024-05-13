@@ -1,37 +1,29 @@
 import printStars from "../PrintStars"
-import { getLikesByReview, postLike, getUserByID } from "../ExpressAPI"
+import { getLikesByReview, postLike, getUserByID, getRevByRID, getMovieByID } from "../ExpressAPI"
 import { useEffect } from "react"
 import { useState } from "react"
 
-const RevHistory = ({review, movieID, likedPost}) =>{
+const LikeComponent = ({like}) =>{
 
-    console.log("Individual Movie Reviews Component Renders")
+    console.log("User's Individual Likes Component Renders")
     const [likes, setLikes] = useState();
-    const [user, setUser] = useState();
+    const [review, setReview] = useState();
+    const [movie, setMovie] = useState();
+
+    console.log(like.MOVIE_ID)
+
+
+
     
-  
-
     useEffect(()=>{
-        getLikesByReview(review.REVIEW_ID).then(json=>setLikes(json))
-        getUserByID(review.USER_ID).then(json=>setUser(json))
+        getLikesByReview(like.REVIEW_ID).then(json=>setLikes(json))
+        getRevByRID(like.REVIEW_ID).then(json=>setReview(json))
+        getMovieByID(like.MOVIE_ID).then(json => setMovie(json))
 
-    }, [review])
-
-
-    const getLikes = () =>{
-        getLikesByReview(review.REVIEW_ID).then(json=>setLikes(json))
-    }
+    }, [like])
 
 
-    const handleLike = (e) =>{
-        console.log("LIKED REVIEW")
-        postLike(review.REVIEW_ID, 1, movieID).then(()=> getLikes())
-        console.log(likes)
-        e.target.style.backgroundColor = "pink"
-        
-        
 
-    }
 
     const historyDisplay = {
         display:"flex",
@@ -49,7 +41,8 @@ const RevHistory = ({review, movieID, likedPost}) =>{
     const reviewText = {
         color:"white",
         paddingLeft:"30px",
-        width:"40%"
+        width:"40%",
+        fontSize:"12px"
     }
 
     const userText = {
@@ -90,34 +83,46 @@ const RevHistory = ({review, movieID, likedPost}) =>{
         marginTop:"8px"
     }
 
-    let likeCount = likes ? likes.length : 0
-    let username = user ? user[0].NAME : "Unavailable"
-
-    console.log(review.REVIEW_ID)
-    for(let i = 0; i < likedPost.length; i++){
-        console.log(likedPost[i].REVIEW_ID)
-
-        if(review.REVIEW_ID === likedPost[i].REVIEW_ID){
-            LikeStyle.backgroundColor = "pink"
-        }
+    const LikeMovie ={
+        height:"100px",
+        backgroundColor:"grey",
+        borderRadius:"11px"
+        
     }
 
+    let likeCount = likes ? likes.length : 0
+    let rating = review ? review[0].RATING : 0
+    let text = review ? review[0].REVIEW_TEXT : 0
+
+   
+
+    console.log(movie)
 
     
+    if(movie != null){
+        console.log(movie)
 
+    }
+   
+    let PosterLink = movie ? "https://image.tmdb.org/t/p/w500/" + movie.poster_path : ""
+
+    
+    
     return(
         <div style={historyDisplay}>
-            {printStars(review.RATING)}
-            <p style={reviewText}>{review.REVIEW_TEXT}</p>
-            <p style={userText}>{username}</p>
+            {printStars(rating)}
+            <p style={reviewText}>{text}</p>
             <div style={LikeContainer}>
-                <img src="LikeSymbol.png" style={LikeStyle} id="likebutton" onClick={handleLike}/>
+                <img src="LikeSymbol.png" style={LikeStyle} id="likebutton"/>
                 <p style={LikeText}>{likeCount}</p>
             </div>
+            <img src={PosterLink} style={LikeMovie} id="reviewposter"/>
         </div>
 
     )
+    
+    
 
 }
 
-export default RevHistory
+export default LikeComponent

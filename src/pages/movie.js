@@ -1,16 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { Rating } from '@mui/material';
-import { getRevFromMID } from '../components/ExpressAPI';
 import { useLocation } from 'react-router-dom';
 import PrevReviews from '../components/MovieComponents/MovieReviews';
+import { postReview, getRevFromMID, getLikesUIDandMID } from '../components/ExpressAPI';
 import '../css/MoviePage.css';
-import { postReview } from '../components/ExpressAPI';
 
 
 const Movie = () => {
-    console.log("Movie Page renders")
-    
     //Create state variables for the movie information
     const [movie, setMovie] = useState(
         {
@@ -19,16 +16,14 @@ const Movie = () => {
             "poster":null
         }
     );
+    const [reviews, setReviews] = useState([]);
 
-    const [revs, setRevs] = useState([]);
-    const [reviewList, setReviewList] = useState([]);
+    const [likedReview, setLikedReviews] = useState([])
 
-   
     const location = useLocation();
 
+    console.log("Movie Page displaying Movie ID : " + movie.id)
 
-    //Set the movie state information once the location of the page renders
-    //LOOK INTO THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     useEffect(()=>{
         if(location.state != null){
             setMovie({id:location.state.movieID, title:location.state.title, poster:location.state.poster})
@@ -41,36 +36,49 @@ const Movie = () => {
     //Get reviews for the movie on the page once the movie info renders
     useEffect(()=>{
         if(movie.id != null){
-            getRevFromMID(movie.id).then(json=>{
-                setRevs(json)
-    
-            })
+            getRevFromMID(movie.id).then(json=>{setReviews(json)})
+
+            getLikesUIDandMID(1, movie.id).then(json=>{setLikedReviews(json)})
+
+
 
         }
       
 
     }, [movie.id])
 
+
+    const getReviews = () =>{
+        if(movie.id != null){
+            getRevFromMID(movie.id).then(json=>{setReviews(json)})
+
+        }
+    }
+
    
     const validateForm = (event) =>{
         event.preventDefault();
         let reviewRating = document.forms["reviewForm"]["half-rating"].value;
         let reviewText = document.getElementById('reviewText').value
-        console.log("SUBMITTING REVIEW")
-        console.log(reviewRating)
-        console.log(reviewText)
-
-        postReview(movie.id, 1, reviewText, reviewRating)
-        let reviews = setReviewList(getRevFromMID(movie.id).then(json=>{
-            setRevs(json)
-
-        }))
-
-        setReviewList(reviews)
+        console.log("---- Submitting Review -------")
+        postReview(movie.id, reviewText, reviewRating, 1).then(()=> getReviews())
+        document.forms["reviewForm"]["half-rating"].defaultValue = 0
+        document.getElementById('reviewText').value = ""
     }
     
-    console.log("Movie Page displaying Movie ID : " + movie.id)
-    console.log("Reviews Length" + revs.length)
+   
+
+    const getAvgRating = (ratings) =>{
+        let sum = 0
+        for(let i = 0; i < ratings.length; i++){
+            sum += ratings[i].RATING
+        }
+        return sum/ratings.length
+    }
+
+
+    const avgRating = getAvgRating(reviews)
+    
 
     return(
         <div className='revPage'>
@@ -91,17 +99,25 @@ const Movie = () => {
                     </form>
 
                     <div>
-                        <h1 className='reviewTitle'>Previous Reviews</h1>
-                        <h3 className='reviewTitle'>Total Reviews: {revs.length}</h3>
-                        <h3 className='reviewTitle'>Average Rating: {revs.length}</h3>
+                        
+                        <h4 className='reviewTitle'>Total Reviews: {reviews.length}</h4>
+                        <h4 className='reviewTitle'>Average Rating: {avgRating}</h4>
 
                     </div>
-                    
-                    <PrevReviews reviews={revs}/>
 
                     
                     
                     
+
+                    
+                    
+                    
+                </div>
+
+                <div className='prevReviewContainer'>
+                    <h1 className='reviewTitle'>Previous Reviews</h1>
+                    <PrevReviews reviews={reviews} movieID={movie.id} likedPost={likedReview}/>
+
                 </div>
            
         </div>

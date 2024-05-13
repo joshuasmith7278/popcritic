@@ -29,7 +29,7 @@ const Home = () => {
     useEffect(()=>{
 
         //Get Following Feed
-       getHomeDispRev().then(json=>{setReviews(json)})
+       getHomeDispRev().then(json=>{setReviews(json)}).catch(error=>setReviews(null))
 
        //Get Recent Movie Feed
        getRecentMovies().then(json=>{setMovies(json)})
@@ -38,24 +38,31 @@ const Home = () => {
 
 
     console.log("Home Page Renders");
+    console.log(reviews);
 
     /*
     https://image.tmdb.org/t/p/w500/[IMG PATH]
 
+    
     */
 
+    const FollowingText ={
+        color:"gold"
+    }
 
     //FORMAT REVIEW DATA
-    const FollowingContent = reviews?.map(
+    const FollowingContent = reviews != "No results" ? reviews?.map(
         review=>
-        <FollowingFeed src={review.POSTER} title={review.TITLE} desc={review.REVIEW_TEXT} review={review.RATING.toString()} movieID={review.MOVIE_MOVIE_ID} />
-    )
+        <FollowingFeed  desc={review.REVIEW_TEXT} review={review.RATING} movieID={review.MOVIE_ID} />
+    ) : <p style={FollowingText}>Unavailable</p>
+    
 
     const RecentContent = movies.results?.slice(0,9).map(
         recent =>
-        <RecentsFeed src={recent.poster_path} date={recent.release_date} title={recent.original_title} />
+        <RecentsFeed src={recent.poster_path} date={recent.release_date} title={recent.original_title} id={recent.id} />
         
     )
+    
 
 
     return(
